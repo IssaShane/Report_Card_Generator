@@ -1,3 +1,8 @@
+Description:
+
+Hello! This project was created to learn about reading and handling CSV files
+for the purposes of data management.
+
 To Compile:
 
 1. navigate to the directory .../Backend_Assignment output
