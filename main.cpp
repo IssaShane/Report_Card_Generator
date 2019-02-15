@@ -60,7 +60,7 @@ void init_courses(vector<Student> &students, vector<Course> &courses,
 //  the grading weight of each test contained in test_file
 // requires: none
 // effects: mutates data
-// efficiency: O(n²log(n)) [REVIEW]
+// efficiency: O(n²log(n))
 void init_weights(vector<vector <int>> &weights, vector<Student> &students,
                   Hash &weight_hash, CSV &test_file) {
   int size = test_file.contents.size();
@@ -85,7 +85,7 @@ void init_weights(vector<vector <int>> &weights, vector<Student> &students,
 //  to each test for each student
 // requires: none
 // effects: mutates data
-// efficiency: O(n fucking nightmares)
+// efficiency: O(n²log(n))
 void init_marks(vector<Student> &students, vector<vector<int>> &weights,
                 Hash & weight_hash, CSV &mark_file) {
   int size = mark_file.contents.size();
@@ -99,13 +99,6 @@ void init_marks(vector<Student> &students, vector<vector<int>> &weights,
       if (students[j].getID() == stu_id) {
         //find the appropriate weight for the mark
         int weight = 0;
-        /*
-        int weights_size = weights.size();
-        for (int w = 0; w < weights_size; w++) {
-          if (weights[w][0] == test_id) {
-            weight = weights[w][1];
-          }
-        }*/
         weight = weights[weight_hash.get_index(test_id)][1];
 
         students[j].addMark(test_id, mark, weight);
@@ -114,6 +107,12 @@ void init_marks(vector<Student> &students, vector<vector<int>> &weights,
   }
 }
 
+// load_data() loads all student data from the students, courses, marks, and
+//  tests CSV files, and outputs and writes them to report_card.txt as designed
+// requires: students.csv, courses.csv, marks.csv, and tests.csv are all in the
+//  same directory as the executable file
+// effects: Outputs and writes to local files
+// efficiency: O(n²log(n))
 void load_data() {
   CSV stu_file("students.csv");
   CSV course_file("courses.csv");
